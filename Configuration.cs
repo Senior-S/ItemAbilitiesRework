@@ -8,8 +8,6 @@ namespace ItemAbilitiesRework
     {
         public void LoadDefaults()
         {
-            //item_effects = "140,speed3,81,gravity0";
-            //clothing_effects = "310,jump2";
             ItemEffects = new List<ItemEffect> { ItemEffect };
             ClothEffects = new List<ClothEffect> { ClothEffect };
         }

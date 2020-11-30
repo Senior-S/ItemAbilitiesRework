@@ -2,7 +2,9 @@
 using Rocket.Core.Plugins;
 using SDG.Unturned;
 using Steamworks;
+using System.Collections;
 using System.Linq;
+using UnityEngine;
 using Logger = Rocket.Core.Logging.Logger;
 
 namespace ItemAbilitiesRework
@@ -18,27 +20,48 @@ namespace ItemAbilitiesRework
             Logger.Log("[ItemAbilitiesRework] Official discord: discord.dvtserver.xyz");
         }
 
-        private void OnPlayerDied(PlayerLife sender, EDeathCause cause, ELimb limb, CSteamID instigator)
+        private IEnumerator PlayerJoin(Player player, PlayerClothing clothing)
         {
-            sender.player.movement.sendPluginGravityMultiplier(1);
-            sender.player.movement.sendPluginJumpMultiplier(1);
-            sender.player.movement.sendPluginSpeedMultiplier(1);
+            yield return new WaitForSeconds(2f);
+            SendEffectClothing(clothing.backpack, player);
+            SendEffectClothing(clothing.glasses, player);
+            SendEffectClothing(clothing.hat, player);
+            SendEffectClothing(clothing.mask, player);
+            SendEffectClothing(clothing.pants, player);
+            SendEffectClothing(clothing.shirt, player);
+            SendEffectClothing(clothing.vest, player);
+            yield break;
         }
+
+        // I will add this and other features in a next update.
+        /*private IEnumerator DamagePlayer(Player pl, float interval, float damage, ushort id, string CorI)
+        {
+            while (pl.equipment.itemID == id || pl.clothing.backpack == id || pl.clothing.glasses == id || pl.clothing.hat == id || pl.clothing.mask == id || pl.clothing.pants == id || pl.clothing.shirt == id || pl.clothing.vest == id)
+            {
+                yield return new WaitForSeconds(interval);
+
+                DamagePlayerParameters par = new DamagePlayerParameters
+                {
+                    applyGlobalArmorMultiplier = false,
+                    cause = EDeathCause.SUICIDE,
+                    damage = damage,
+                    direction = pl.transform.position,
+                    bleedingModifier = DamagePlayerParameters.Bleeding.Default,
+                    bonesModifier = DamagePlayerParameters.Bones.None,
+                    player = pl,
+                    ragdollEffect = ERagdollEffect.NONE,
+                    respectArmor = false
+                };
+                DamageTool.damagePlayer(par, out EPlayerKill kill);
+            }
+            yield break;
+        }*/
 
         #region Events
         private void OnEnemyConnected(SteamPlayer player)
         {
-            player.player.movement.sendPluginGravityMultiplier(1);
-            player.player.movement.sendPluginJumpMultiplier(1);
-            player.player.movement.sendPluginSpeedMultiplier(1);
             var clothing = player.player.clothing;
-            SendEffectClothing(clothing.backpack, player.player);
-            SendEffectClothing(clothing.glasses, player.player);
-            SendEffectClothing(clothing.hat, player.player);
-            SendEffectClothing(clothing.mask, player.player);
-            SendEffectClothing(clothing.pants, player.player);
-            SendEffectClothing(clothing.shirt, player.player);
-            SendEffectClothing(clothing.vest, player.player);
+            StartCoroutine(PlayerJoin(player.player, clothing));
             player.player.equipment.onEquipRequested += OnEquipRequested;
             player.player.equipment.onDequipRequested += OnDequipRequested;
             player.player.clothing.onBackpackUpdated += (newBackpack, newBackpackQuality, newBackpackState) => OnBackpackUpdated(player.player, newBackpack, newBackpackQuality, newBackpackState);
@@ -61,6 +84,13 @@ namespace ItemAbilitiesRework
             player.player.clothing.onPantsUpdated -= (newPants, newPantsQuality, newPantsState) => OnPantsUpdated(player.player, newPants, newPantsQuality, newPantsState);
             player.player.clothing.onShirtUpdated -= (newShirt, newShirtQuality, newShirtState) => OnShirtUpdated(player.player, newShirt, newShirtQuality, newShirtState);
             player.player.clothing.onVestUpdated -= (newVest, newVestQuality, newVestState) => OnVestUpdated(player.player, newVest, newVestQuality, newVestState);
+        }
+
+        private void OnPlayerDied(PlayerLife sender, EDeathCause cause, ELimb limb, CSteamID instigator)
+        {
+            sender.player.movement.sendPluginGravityMultiplier(1);
+            sender.player.movement.sendPluginJumpMultiplier(1);
+            sender.player.movement.sendPluginSpeedMultiplier(1);
         }
 
         private void OnVestUpdated(Player player, ushort newVest, byte newVestQuality, byte[] newVestState)
@@ -170,6 +200,10 @@ namespace ItemAbilitiesRework
         #region Functions
         private void SendEffectItems(ushort id, Player player)
         {
+            if (id == 0)
+            {
+                return;
+            }
             var items = Configuration.Instance.ItemEffects.Where(k => k.ItemId == id);
             if (items.Count() > 1)
             {
@@ -208,6 +242,10 @@ namespace ItemAbilitiesRework
 
         private void SendEffectClothing(ushort id, Player player)
         {
+            if (id == 0)
+            {
+                return;
+            }
             var cloths = Configuration.Instance.ClothEffects.Where(k => k.ClothId == id);
             if (cloths.Count() > 1)
             {
