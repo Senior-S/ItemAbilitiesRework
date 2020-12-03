@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ItemAbilitiesRework.Models
+namespace ItemAbilities.Models
 {
     public class ClothEffect
     {

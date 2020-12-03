@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SS.ItemAbilities</id>
+    <version>2.0.0</version>
+    <authors>ItemAbilities</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">EUPL-1.2</license>
+    <licenseUrl>https://licenses.nuget.org/EUPL-1.2</licenseUrl>
+    <description>You can assign effects (Speed/Jump/Gravity Multiplier) to any item like a Katana or a Hat.</description>
+    <tags>openmod openmod-plugin XXX</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.1">
+        <dependency id="OpenMod.UnityEngine.Redist" version="2019.4.10" exclude="Build,Analyzers" />
+        <dependency id="OpenMod.Unturned" version="2.3.8" exclude="Build,Analyzers" />
+        <dependency id="OpenMod.Unturned.Redist" version="3.20.14" exclude="Build,Analyzers" />
+        <dependency id="dnlib" version="3.3.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="E:\Copia de seguridad\Plugins\OpenModPlugins\ItemAbilities\bin\Debug\net461\ItemAbilities.dll" target="lib\net461\ItemAbilities.dll" />
+  </files>
+</package>

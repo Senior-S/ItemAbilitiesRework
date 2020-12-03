@@ -1,0 +1,15 @@
+#EFFECTS: speed - jump - gravity
+itemeffects:
+- itemid: 140
+  effect: speed
+  multiplier: 3
+- itemid: 1364
+  effect: speed
+  multiplier: 0.7
+clotheffects:
+- clothid: 310
+  effect: gravity
+  multiplier: 1.5
+- clothid: 253
+  effect: speed
+  multiplier: 0.8
