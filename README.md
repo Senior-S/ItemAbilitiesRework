@@ -6,6 +6,6 @@ You can assign effects (Speed/Jump/Gravity Multiplier) to any item like a Katana
 **You can add infinite items or clothes!**
 
 Where i can download this plugin?<br />
-*Here:* https://github.com/Senior-S/ItemAbilities/releases/
+*Here:* https://github.com/Senior-S/ItemAbilitiesRework/releases/download/1.0.0/ItemAbilitiesRework.dll
 
 Unturned RocketMod
