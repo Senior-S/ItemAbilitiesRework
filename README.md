@@ -1,3 +1,5 @@
+![NugetDownloads](https://img.shields.io/nuget/dt/SS.ItemAbilities?label=Nuget%20Downloads)
+
 # ItemAbilitiesRework 
 You can assign effects (Speed/Jump/Gravity Multiplier) to any item like a Katana or a Hat.
 
